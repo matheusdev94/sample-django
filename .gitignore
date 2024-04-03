@@ -1,0 +1,36 @@
+# Arquivos e diretórios gerais
+*.pyc
+__pycache__/
+*.sqlite3
+db.sqlite3
+*.pyo
+*.pyd
+*.pyc
+*.egg-info/
+dist/
+build/
+*.bak
+*.swp
+
+# Ambiente virtual
+venv/
+env/
+.venv/
+
+# Arquivos de configuração
+*.env
+
+# Arquivos de logs
+*.log
+
+# Arquivos temporários
+*.tmp
+
+# sqlite files
+sqldiff.exe
+sqlite3.exe
+sqlite3_analyzer.exe
+
+# data files
+app/media/*
+app/payments/*
