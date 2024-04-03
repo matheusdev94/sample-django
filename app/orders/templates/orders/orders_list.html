@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+<header>
+    <script>
+        window.onload 
+    </script>
+</header>
+{% block title %}
+    SAMPLE - Pedido
+{% endblock %}
+
+{% block content %}
+    <h1 class="title">Pedidos</h1>
+    {% if orders %}
+        {% for order in orders %}
+            {% if order.status == False %}
+                <h2>Abertos:</h2>
+                <div class="order-item">
+                    <a href="{% url 'orders:order' id=order.id%}">    
+                        <p class="order-id">ID #{{order.id}}</p>
+                        <p class="order-date">Data: {{order.date}}</p>
+                        <p class="order-price">Valor: R$ {{order.total}}</p>
+                        {% if order.qr_code_data != 'qrcode' %}
+                            <p class="order-status">Status: Aguardando pagamento.</p>
+                        {% else %}
+                            <p class="order-status">Status: Em seleção de produtos.</p>
+                        {% endif %}
+                    </a>
+                    <form action="{% url 'orders:delete_order' id=order.id%}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value='orders:orders_list'>
+                        <button class="exclude-order">Excluir Pedido</button>
+                    </form>
+                </div>
+            {%else%}
+                <h2>Encerrados:</h2>
+                <div class="order-item">
+                    <a href="{% url 'orders:order' id=order.id%}">    
+                        <p class="order-id">ID #{{order.id}}</p>
+                        <p class="order-date">Data: {{order.date}}</p>
+                        <p class="order-price">Valor: R$ {{order.total}}</p>
+                        <p class="order-status">Status: Compra finalizada.</p>
+                    </a>
+                    <button class="exclude-order">Repetir o pedido</button>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>Sem pedidos. <a href="{% url 'products:list' %}"></a>Ir para produtos e criar novo.</p>
+    {% endif %}
+    
+            
+{% endblock %}

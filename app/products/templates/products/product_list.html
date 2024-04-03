@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    SAMPLE - Produtos
+{% endblock %}
+{% block content %}
+    {% if products %}
+        {% for product in products %}
+            <a href="{% url 'products:product' slug=product.slug %}" rel="noopener noreferrer">
+                <h1 class="product-title">{{ product.name }}</h1>
+                <p class="product-size">Tamanho: {{ product.size }}</h1>
+                <p class="price">Preço: R$ {{ product.price }}</p>                
+                <img class='image-list-item' src="{{product.banner.url}}" alt="{{product.title}}-image" >
+            </a>                
+            {% if not user.is_authenticated %}
+                <button class="add-to-cart" onClick="redirect('/users/login/')">Adicionar ao pedido</button>
+            {%else%}
+                <form action="{%url 'orders:add_item'%}" method="post">
+                    {% comment %} <form action="/orders/add_item/" method="post"> {% endcomment %}
+                    {% csrf_token %}
+                    <input type="hidden" name="product" value="{{product.id}}">
+                    <input type="hidden" name="email" value="{{user.email}}">
+                    <button class="add-to-cart" sumbit>Adicionar ao pedido</button>
+                </form>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>Sem produtos à venda.</p>
+    {% endif %}
+{% endblock %}

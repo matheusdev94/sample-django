@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    SAMPLE - Pedido
+{% endblock %}
+
+{% block content %}
+    <h1 class="product-title">Pagamento</h1>
+    
+    <h2>Pedido #{{ order.id }}</h2>
+
+    <div class="qrcode-content">
+        <img src="{{ order.qr_code_image.url }}" alt="QR Code">
+        <input id="qr-code-clip-board" readonly value="{{ order.qr_code_data }}"></input>
+
+        <input id="time-left" value='calculateTimeRemaining({{expiration_time}})' readonly></input>
+        <button type="button" onClick="copyQrCodeToClipBoard()">Copiar</button>
+    </div>
+
+    <script>
+        window.onload = function() {
+            checkPaymentStatus("{{ payment_id }}");
+        };
+    </script>
+{% endblock %}

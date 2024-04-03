@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+            SAMPLE
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+<body>
+
+    <nav>
+        |
+        <a href="/#home">
+            <span aria-label="Home" title="Home">Home</span>
+        </a> | 
+        <a href="/#about">
+            <span aria-label="Sobre" title="Sobre">Sobre</span>
+        </a> | 
+        <a href="/#contact">
+            <span aria-label="Contato" title="Contato">Contato</span>
+        </a> | 
+        <a href="/products">
+            <span aria-label="Produtos" title="Produtos">Produtos</span>
+        </a> | 
+        {% if user.is_authenticated %}
+            <a href="/orders">
+                <span aria-label="Meus Pedidos" title="Meus Pedidos">Meus Pedidos</span>
+            </a> | 
+            <form action="{% url 'users:logout' %}" method="post">
+                {% csrf_token %}
+                <button id='logout-button'>Sair</button> |
+            </form>
+        {% else %}
+            <a href='/users/login'>
+                <span class="login-buttom">Entrar</span>
+            </a> |
+            <a href='/users/register'>
+                <span class="login-buttom">Cadastrar-se</span>
+            </a>|
+        {% endif %}
+        </nav>
+    <main>
+        {% if user.is_authenticated %}
+            <p>Logado como: {{user.first_name }} {{user.last_name}}</p>
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </main>
+    <a href="https://wa.me/5531982124311?text=Olá,%20venho do seu site."></a>
+</body>
+</html>

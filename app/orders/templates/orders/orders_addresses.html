@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    SAMPLE - Endereço de entrega
+{% endblock %}
+
+{% block content %}
+    <h1 class="product-title">Endereço de entrega</h1>
+    <p class="info">Selecione o endereço da entrega:</p>
+    {% for address in addresses %}
+        <a href="{% url 'orders:payment' order_id=order_id address_id=address.id %}">
+            <p class="address-name">Nome: {{address.name}}</p>
+            <p class="text-cep">CEP: {{address.cep}}</p>
+            <p class="text-address-street">Rua: {{address.street}}, nº {{address.address_number}} - {{address.address_complement}}, {{address.city}}</p>
+            </br>
+        </a>
+    {% endfor %}
+    <a href="{%url 'users:register_address' order_id=order_id%}">Registrar novo endereço</a>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+
+{%block title%}
+    SAMPLE - Cadastro de Endereço
+{%endblock%}
+
+{%block content%}
+    <h1>Cadastrar Endereço</h1>
+    <form class='form-with-validation' action="{% url 'users:register_address' order_id=order_id %}" method="post">
+        {% comment %} <div class="erro-wrapper"> {% endcomment %}
+            <p id="error_message_invalid_cep" class='error-messge'>CEP inválido, por favor, revise o CEP informado.</p>
+            <p id="error_message_localization" class='error-messge'>Infelizmente atendemos apenas Belo Horizonte e Região.</p>
+        {% comment %} </div> {% endcomment %}
+        
+        {% csrf_token %}
+        {% comment %} <input type="hidden" name="user_email" value="{{user.email}}"> {% endcomment %}
+        {{form}}
+        <button class='form-submit'>Registrar</button>
+    </form>
+{%endblock%}

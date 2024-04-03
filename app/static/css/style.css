@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+nav {
+  display: flex;
+  flex-direction: row;
+}
+#logout-button {
+  background-color: none;
+  border: none;
+  color: blue;
+  text-decoration: underline;
+}
+.product-fotos {
+  /* height: 400px; */
+  width: 400px;
+}
+.image-list-item {
+  width: 100px;
+}
+a {
+  text-decoration: none;
+}
+.erro-wrapper {
+  position: relative;
+  background-color: rgb(121, 121, 121);
+}
+.error-messge {
+  visibility: hidden;
+  /* position: absolute; */
+  color: rgb(163, 5, 5);
+}
+#id_uf #id_email_address_registration {
+  visibility: hidden;
+  position: absolute;
+}
+.item-quantity-container {
+  display: flex;
+  flex-direction: row;
+}
+.qrcode-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+}

@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+
+{%block title%}
+    SAMPLE - Entrar
+{%endblock%}
+
+{%block content%}
+    <h1>Entrar</h1>
+    <form class="form-with-validation" action="{% url 'users:login' %}" method="post">
+        {% csrf_token %}
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{request.GET.next}}">
+        {% endif %}
+        {{form}}
+        <p>Ainda não possui cadastro? <a href="{% url 'users:register' %}">Registrar-se.</a></p>
+        <button class="form-submit">Entrar</button>
+    </form>
+{%endblock%}

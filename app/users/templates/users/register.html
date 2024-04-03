@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+
+{%block title%}
+    SAMPLE - Cadastro
+{%endblock%}
+
+{%block content%}
+    <h1>Cadastrar</h1>
+    <form class='form-with-validation' action="{% url 'users:register' %}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <p>Ja possui cadastro? <a href="/users/login/">Entrar.</a></p>
+        <button class='form-submit'>Registrar</button>
+    </form>
+{%endblock%}

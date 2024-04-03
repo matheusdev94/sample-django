@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    SAMPLE - Pedido
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="product-title">Pedido</h1>
+    <a class="back-button" href="{% url 'orders:orders_list'%}">Voltar</a>
+    {% if items %}
+        <div class="order-item">
+            {% for item in items %}
+                <h2 class="item-name">{{item.name}}</h2>
+                <p class="item-size">Tamanho: {{item.size}}</p>
+                <p class="item-price">Preço: R${{item.price}} un.</p>
+                <div class="item-quantity-container">
+                    <p class="item-quantity-label">Quantidade: </p>
+                    <form action="{% url 'orders:add_item' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="product" value="{{item.id}}">
+                        <input type="hidden" name="next" value="/orders/{{order.id}}">
+                        <button class="add-item">+</button>
+                    </form>
+                    {% for item_json in items_json %}
+                        {% if item.id == item_json.id %}
+                            <p class="item-quantity-value">{{item_json.quantity}}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% comment %} <img src={{item.photo[0].url}} alt="" class="order-item-image"> {% endcomment %}
+                
+                    <form action="{% url 'orders:remove_item' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="product" value="{{item.id}}">
+                        <input type="hidden" name="next" value="/orders/{{order.id}}">
+                        <button class="remove-item">-</button>
+                    </form>
+                </div>
+
+                <form action="{% url 'orders:delete_item' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="product" value="{{item.id}}">
+                    <input type="hidden" name="next" value="/orders/{{order.id}}">
+                    <button class="delete-order-item">Excluir Item</button>
+                </form>
+                <p class="total-item-cost"></p>
+            {% endfor %}
+            <p class="total-order">Total do pedido: R$ {{order.total}}</p>
+
+            <a class="add-items-orde" href="{% url 'products:list' %}">Adicionar mais items</a>
+            <a class="finalize-order" href="{% url 'orders:finalize_order' id=order.id %}">Realizar o pedido</a>
+
+        </div>
+    {% else %}
+        <p>Sem pedidos na lista. <a href="{% url 'products:list' %}">Ir para pagina de produtos.</a></p>
+    {% endif %}
+{% endblock %}
