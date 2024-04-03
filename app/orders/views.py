@@ -67,6 +67,7 @@ def check_payment_status_view(request):
     except Exception as e:
         # Em caso de erro, retorne uma resposta JSON indicando o erro
         return JsonResponse({'error': str(e)}, status=500)
+    
 @login_required(login_url="/users/login/")
 def payment_view(request, order_id, address_id):
 
@@ -89,7 +90,7 @@ def payment_view(request, order_id, address_id):
             "transaction_amount": float(order.total),
             # 'currency': 'BRL',
             "payment_method_id": "pix",
-            "date_of_expiration": expiration_time_formatted,
+            # "date_of_expiration": expiration_time_formatted,
             "payer": {
                 "email": request.user.email,
             }
@@ -120,7 +121,20 @@ def payment_view(request, order_id, address_id):
             'payment_id': payment_response['response']['id']
         })
     except:
-        print('exeption')
+        print('''
+              
+              
+
+
+
+              exeption
+              
+              
+              
+              
+              
+        
+        ''')
         return render(request, 'orders/orders_payment.html', {
             "order_id": order_id,
             'address_id': address_id,
